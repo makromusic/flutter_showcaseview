@@ -231,7 +231,6 @@ class Showcase extends StatefulWidget {
 
   /// Provides padding around the description. Default padding is zero.
   final EdgeInsets? descriptionPadding;
-
   const Showcase({
     required this.key,
     required this.child,
@@ -258,7 +257,7 @@ class Showcase extends StatefulWidget {
     this.disableMovingAnimation,
     this.disableScaleAnimation,
     this.tooltipPadding =
-        const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+        const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
     this.onToolTipClick,
     this.targetPadding = EdgeInsets.zero,
     this.blurValue,
@@ -324,7 +323,8 @@ class Showcase extends StatefulWidget {
         tooltipBackgroundColor = Colors.white,
         textColor = Colors.black,
         tooltipBorderRadius = null,
-        tooltipPadding = const EdgeInsets.symmetric(vertical: 8),
+        tooltipPadding =
+            const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         titlePadding = null,
         descriptionPadding = null,
         assert(overlayOpacity >= 0.0 && overlayOpacity <= 1.0,

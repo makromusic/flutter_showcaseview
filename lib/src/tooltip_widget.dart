@@ -27,6 +27,7 @@ import 'package:flutter/material.dart';
 import 'enum.dart';
 import 'get_position.dart';
 import 'measure_size.dart';
+import 'dart:math' as math;
 
 const _kDefaultPaddingFromParent = 14.0;
 
@@ -59,7 +60,6 @@ class ToolTipWidget extends StatefulWidget {
   final TooltipPosition? tooltipPosition;
   final EdgeInsets? titlePadding;
   final EdgeInsets? descriptionPadding;
-
   const ToolTipWidget({
     Key? key,
     required this.position,
@@ -79,7 +79,7 @@ class ToolTipWidget extends StatefulWidget {
     required this.onTooltipTap,
     required this.movingAnimationDuration,
     required this.descriptionAlignment,
-    this.tooltipPadding = const EdgeInsets.symmetric(vertical: 8),
+    this.tooltipPadding,
     required this.disableMovingAnimation,
     required this.disableScaleAnimation,
     required this.tooltipBorderRadius,
@@ -109,7 +109,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
 
   double tooltipWidth = 0;
   double tooltipScreenEdgePadding = 20;
-  double tooltipTextPadding = 15;
+  double tooltipTextPadding = 12;
 
   TooltipPosition findPositionForContent(Offset position) {
     var height = 120.0;
@@ -136,12 +136,12 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
     final titleStyle = widget.titleTextStyle ??
         Theme.of(context)
             .textTheme
-            .titleLarge!
+            .headline6!
             .merge(TextStyle(color: widget.textColor));
     final descriptionStyle = widget.descTextStyle ??
         Theme.of(context)
             .textTheme
-            .titleSmall!
+            .subtitle2!
             .merge(TextStyle(color: widget.textColor));
     final titleLength = widget.title == null
         ? 0
@@ -332,8 +332,8 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
     final num contentFractionalOffset =
         contentOffsetMultiplier.clamp(-1.0, 0.0);
 
-    var paddingTop = isArrowUp ? 22.0 : 0.0;
-    var paddingBottom = isArrowUp ? 0.0 : 27.0;
+    var paddingTop = isArrowUp ? 15.0 : 0.0;
+    var paddingBottom = isArrowUp ? 0.0 : 22.0;
 
     if (!widget.showArrow) {
       paddingTop = 10;
@@ -382,23 +382,38 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                             ? Alignment.bottomRight
                             : Alignment.bottomLeft,
                     children: [
-                      if (widget.showArrow)
+                      if (widget.showArrow &&
+                          widget.tooltipPosition == TooltipPosition.top)
                         Positioned(
-                          left: _getArrowLeft(arrowWidth),
-                          right: _getArrowRight(arrowWidth),
-                          child: CustomPaint(
-                            painter: _Arrow(
-                              strokeColor: widget.tooltipBackgroundColor!,
-                              strokeWidth: 10,
-                              paintingStyle: PaintingStyle.fill,
-                              isUpArrow: isArrowUp,
+                            left: _getArrowLeft(arrowWidth),
+                            top: 4,
+                            right: _getArrowRight(arrowWidth),
+                            child: Transform.rotate(
+                              angle: -math.pi / 4.0,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(5)),
+                                child: Container(
+                                  color: Colors.white,
+                                  width: 10,
+                                  height: 10,
+                                ),
+                              ),
+                            )
+
+                            // CustomPaint(
+                            //   painter: _Arrow(
+                            //     strokeColor: widget.tooltipBackgroundColor!,
+                            //     strokeWidth: 10,
+                            //     paintingStyle: PaintingStyle.fill,
+                            //     isUpArrow: isArrowUp,
+                            //   ),
+                            //   child: const SizedBox(
+                            //     height: arrowHeight,
+                            //     width: arrowWidth,
+                            //   ),
+                            // ),
                             ),
-                            child: const SizedBox(
-                              height: arrowHeight,
-                              width: arrowWidth,
-                            ),
-                          ),
-                        ),
                       Padding(
                         padding: EdgeInsets.only(
                           top: isArrowUp ? arrowHeight - 1 : 0,
@@ -428,7 +443,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                                         style: widget.titleTextStyle ??
                                             Theme.of(context)
                                                 .textTheme
-                                                .titleLarge!
+                                                .headline6!
                                                 .merge(
                                                   TextStyle(
                                                     color: widget.textColor,
@@ -445,7 +460,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                                       style: widget.descTextStyle ??
                                           Theme.of(context)
                                               .textTheme
-                                              .titleSmall!
+                                              .subtitle2!
                                               .merge(
                                                 TextStyle(
                                                   color: widget.textColor,
@@ -459,6 +474,24 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                           ),
                         ),
                       ),
+                      if (widget.showArrow &&
+                          widget.tooltipPosition == TooltipPosition.bottom)
+                        Positioned(
+                            left: _getArrowLeft(arrowWidth),
+                            top: 25,
+                            right: _getArrowRight(arrowWidth),
+                            child: Transform.rotate(
+                              angle: -math.pi / 4.0,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(5)),
+                                child: Container(
+                                  color: Colors.white,
+                                  width: 15,
+                                  height: 15,
+                                ),
+                              ),
+                            ))
                     ],
                   ),
                 ),
@@ -534,50 +567,5 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
     return (MediaQuery.of(context).size.width - widget.position!.getCenter()) -
         (_getRight() ?? 0) -
         (arrowWidth / 2);
-  }
-}
-
-class _Arrow extends CustomPainter {
-  final Color strokeColor;
-  final PaintingStyle paintingStyle;
-  final double strokeWidth;
-  final bool isUpArrow;
-  final Paint _paint;
-
-  _Arrow({
-    this.strokeColor = Colors.black,
-    this.strokeWidth = 3,
-    this.paintingStyle = PaintingStyle.stroke,
-    this.isUpArrow = true,
-  }) : _paint = Paint()
-          ..color = strokeColor
-          ..strokeWidth = strokeWidth
-          ..style = paintingStyle;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    canvas.drawPath(getTrianglePath(size.width, size.height), _paint);
-  }
-
-  Path getTrianglePath(double x, double y) {
-    if (isUpArrow) {
-      return Path()
-        ..moveTo(0, y)
-        ..lineTo(x / 2, 0)
-        ..lineTo(x, y)
-        ..lineTo(0, y);
-    }
-    return Path()
-      ..moveTo(0, 0)
-      ..lineTo(x, 0)
-      ..lineTo(x / 2, y)
-      ..lineTo(0, 0);
-  }
-
-  @override
-  bool shouldRepaint(covariant _Arrow oldDelegate) {
-    return oldDelegate.strokeColor != strokeColor ||
-        oldDelegate.paintingStyle != paintingStyle ||
-        oldDelegate.strokeWidth != strokeWidth;
   }
 }
