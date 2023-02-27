@@ -383,7 +383,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                             : Alignment.bottomLeft,
                     children: [
                       if (widget.showArrow &&
-                          widget.tooltipPosition == TooltipPosition.top)
+                          widget.tooltipPosition == TooltipPosition.bottom)
                         Positioned(
                             left: _getArrowLeft(arrowWidth),
                             top: 4,
@@ -391,8 +391,9 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                             child: Transform.rotate(
                               angle: -math.pi / 4.0,
                               child: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(5)),
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(5),
+                                ),
                                 child: Container(
                                   color: Colors.white,
                                   width: 10,
@@ -475,7 +476,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                         ),
                       ),
                       if (widget.showArrow &&
-                          widget.tooltipPosition == TooltipPosition.bottom)
+                          widget.tooltipPosition == TooltipPosition.top)
                         Positioned(
                             left: _getArrowLeft(arrowWidth),
                             top: 25,
