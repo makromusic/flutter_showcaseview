@@ -257,7 +257,7 @@ class Showcase extends StatefulWidget {
     this.disableMovingAnimation,
     this.disableScaleAnimation,
     this.tooltipPadding =
-        const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+        const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
     this.onToolTipClick,
     this.targetPadding = EdgeInsets.zero,
     this.blurValue,
@@ -323,8 +323,7 @@ class Showcase extends StatefulWidget {
         tooltipBackgroundColor = Colors.white,
         textColor = Colors.black,
         tooltipBorderRadius = null,
-        tooltipPadding =
-            const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+        tooltipPadding = const EdgeInsets.symmetric(vertical: 8),
         titlePadding = null,
         descriptionPadding = null,
         assert(overlayOpacity >= 0.0 && overlayOpacity <= 1.0,

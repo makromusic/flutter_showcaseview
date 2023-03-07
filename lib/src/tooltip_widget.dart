@@ -79,7 +79,7 @@ class ToolTipWidget extends StatefulWidget {
     required this.onTooltipTap,
     required this.movingAnimationDuration,
     required this.descriptionAlignment,
-    this.tooltipPadding,
+    this.tooltipPadding = const EdgeInsets.symmetric(vertical: 8),
     required this.disableMovingAnimation,
     required this.disableScaleAnimation,
     required this.tooltipBorderRadius,
@@ -136,12 +136,12 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
     final titleStyle = widget.titleTextStyle ??
         Theme.of(context)
             .textTheme
-            .headline6!
+            .titleLarge!
             .merge(TextStyle(color: widget.textColor));
     final descriptionStyle = widget.descTextStyle ??
         Theme.of(context)
             .textTheme
-            .subtitle2!
+            .titleSmall!
             .merge(TextStyle(color: widget.textColor));
     final titleLength = widget.title == null
         ? 0
@@ -383,7 +383,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                             : Alignment.bottomLeft,
                     children: [
                       if (widget.showArrow &&
-                          widget.tooltipPosition == TooltipPosition.bottom)
+                          widget.tooltipPosition == TooltipPosition.top)
                         Positioned(
                             left: _getArrowLeft(arrowWidth),
                             top: 4,
@@ -392,8 +392,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                               angle: -math.pi / 4.0,
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(5),
-                                ),
+                                    topRight: Radius.circular(5)),
                                 child: Container(
                                   color: Colors.white,
                                   width: 10,
@@ -444,7 +443,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                                         style: widget.titleTextStyle ??
                                             Theme.of(context)
                                                 .textTheme
-                                                .headline6!
+                                                .titleLarge!
                                                 .merge(
                                                   TextStyle(
                                                     color: widget.textColor,
@@ -461,7 +460,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                                       style: widget.descTextStyle ??
                                           Theme.of(context)
                                               .textTheme
-                                              .subtitle2!
+                                              .titleSmall!
                                               .merge(
                                                 TextStyle(
                                                   color: widget.textColor,
@@ -476,7 +475,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                         ),
                       ),
                       if (widget.showArrow &&
-                          widget.tooltipPosition == TooltipPosition.top)
+                          widget.tooltipPosition == TooltipPosition.bottom)
                         Positioned(
                             left: _getArrowLeft(arrowWidth),
                             top: 25,
@@ -484,7 +483,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                             child: Transform.rotate(
                               angle: -math.pi / 4.0,
                               child: ClipRRect(
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                     bottomLeft: Radius.circular(5)),
                                 child: Container(
                                   color: Colors.white,
