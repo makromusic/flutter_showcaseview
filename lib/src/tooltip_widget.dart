@@ -478,7 +478,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                           widget.tooltipPosition == TooltipPosition.top)
                         Positioned(
                             left: _getArrowLeft(arrowWidth),
-                            top: 25,
+                            top: 22,
                             right: _getArrowRight(arrowWidth),
                             child: Transform.rotate(
                               angle: -math.pi / 4.0,
