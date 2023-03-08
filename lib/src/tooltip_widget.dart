@@ -477,21 +477,23 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                       if (widget.showArrow &&
                           widget.tooltipPosition == TooltipPosition.top)
                         Positioned(
-                            left: _getArrowLeft(arrowWidth),
-                            top: 22,
-                            right: _getArrowRight(arrowWidth),
-                            child: Transform.rotate(
-                              angle: -math.pi / 4.0,
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(5)),
-                                child: Container(
-                                  color: Colors.white,
-                                  width: 15,
-                                  height: 15,
-                                ),
+                          left: _getArrowLeft(arrowWidth),
+                          top: 25,
+                          right: _getArrowRight(arrowWidth),
+                          child: Transform.rotate(
+                            angle: -math.pi / 4.0,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(5),
                               ),
-                            ))
+                              child: Container(
+                                color: Colors.white,
+                                width: 12,
+                                height: 12,
+                              ),
+                            ),
+                          ),
+                        )
                     ],
                   ),
                 ),
