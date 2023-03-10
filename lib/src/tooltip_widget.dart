@@ -318,7 +318,8 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
 
   @override
   Widget build(BuildContext context) {
-    // TODO: maybe all this calculation doesn't need to run here. Maybe all or some of it can be moved outside?
+    if (widget.description == null) return const SizedBox();
+
     position = widget.offset;
     final contentOrientation = findPositionForContent(position!);
     final contentOffsetMultiplier =
@@ -438,23 +439,24 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                                                 ),
                                       ),
                                     ),
-                                  Padding(
-                                    padding: widget.descriptionPadding ??
-                                        EdgeInsets.zero,
-                                    child: Text(
-                                      widget.description!,
-                                      textAlign: widget.descriptionAlignment,
-                                      style: widget.descTextStyle ??
-                                          Theme.of(context)
-                                              .textTheme
-                                              .titleSmall!
-                                              .merge(
-                                                TextStyle(
-                                                  color: widget.textColor,
+                                  if (widget.description != null)
+                                    Padding(
+                                      padding: widget.descriptionPadding ??
+                                          EdgeInsets.zero,
+                                      child: Text(
+                                        widget.description!,
+                                        textAlign: widget.descriptionAlignment,
+                                        style: widget.descTextStyle ??
+                                            Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .merge(
+                                                  TextStyle(
+                                                    color: widget.textColor,
+                                                  ),
                                                 ),
-                                              ),
+                                      ),
                                     ),
-                                  ),
                                 ],
                               ),
                             ),
