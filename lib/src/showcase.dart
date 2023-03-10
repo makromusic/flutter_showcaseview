@@ -583,27 +583,24 @@ class _TargetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: offset.dy,
-      left: offset.dx,
+      top: offset.dy - (size!.height / 2),
+      left: offset.dx - (size!.width / 2),
       child: IgnorePointer(
         ignoring: disableDefaultChildGestures,
-        child: FractionalTranslation(
-          translation: const Offset(-0.5, -0.5),
-          child: GestureDetector(
-            onTap: onTap,
-            onLongPress: onLongPress,
-            onDoubleTap: onDoubleTap,
-            child: Container(
-              height: size!.height + 16,
-              width: size!.width + 16,
-              decoration: ShapeDecoration(
-                shape: radius != null
-                    ? RoundedRectangleBorder(borderRadius: radius!)
-                    : shapeBorder ??
-                        const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
-              ),
+        child: GestureDetector(
+          onTap: onTap,
+          onLongPress: onLongPress,
+          onDoubleTap: onDoubleTap,
+          child: Container(
+            height: size!.height,
+            width: size!.width,
+            decoration: ShapeDecoration(
+              shape: radius != null
+                  ? RoundedRectangleBorder(borderRadius: radius!)
+                  : shapeBorder ??
+                      const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                      ),
             ),
           ),
         ),
