@@ -385,8 +385,9 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                       if (widget.showArrow &&
                           widget.tooltipPosition == TooltipPosition.bottom)
                         Positioned(
-                          left: 12,
+                          left: _getArrowLeft(arrowWidth),
                           top: 4,
+                          right: _getArrowRight(arrowWidth),
                           child: Transform.rotate(
                             angle: -math.pi / 4.0,
                             child: ClipRRect(
