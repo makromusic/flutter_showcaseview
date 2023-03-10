@@ -333,7 +333,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
         contentOffsetMultiplier.clamp(-1.0, 0.0);
 
     var paddingTop = isArrowUp ? 17.0 : 0.0;
-    var paddingBottom = isArrowUp ? 0.0 : 19.0;
+    var paddingBottom = isArrowUp ? 0.0 : 10.0;
 
     if (!widget.showArrow) {
       paddingTop = 10;
@@ -385,35 +385,22 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                       if (widget.showArrow &&
                           widget.tooltipPosition == TooltipPosition.bottom)
                         Positioned(
-                            left: _getArrowLeft(arrowWidth),
-                            top: 4,
-                            right: _getArrowRight(arrowWidth),
-                            child: Transform.rotate(
-                              angle: -math.pi / 4.0,
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(5)),
-                                child: Container(
-                                  color: Colors.white,
-                                  width: 10,
-                                  height: 10,
-                                ),
+                          left: _getArrowLeft(arrowWidth),
+                          top: 4,
+                          right: _getArrowRight(arrowWidth),
+                          child: Transform.rotate(
+                            angle: -math.pi / 4.0,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(5)),
+                              child: Container(
+                                color: Colors.white,
+                                width: 10,
+                                height: 10,
                               ),
-                            )
-
-                            // CustomPaint(
-                            //   painter: _Arrow(
-                            //     strokeColor: widget.tooltipBackgroundColor!,
-                            //     strokeWidth: 10,
-                            //     paintingStyle: PaintingStyle.fill,
-                            //     isUpArrow: isArrowUp,
-                            //   ),
-                            //   child: const SizedBox(
-                            //     height: arrowHeight,
-                            //     width: arrowWidth,
-                            //   ),
-                            // ),
                             ),
+                          ),
+                        ),
                       Padding(
                         padding: EdgeInsets.only(
                           top: isArrowUp ? arrowHeight - 1 : 0,
