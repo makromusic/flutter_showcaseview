@@ -138,6 +138,7 @@ class Showcase extends StatefulWidget {
   /// Note: [disposeOnTap] is required if you're using [onTargetClick]
   /// otherwise throws error
   final VoidCallback? onTargetClick;
+  final VoidCallback? onTargetDispose;
 
   /// Will dispose all showcases if tapped on target widget or tooltip
   ///
@@ -252,6 +253,7 @@ class Showcase extends StatefulWidget {
     ),
     this.showArrow = true,
     this.onTargetClick,
+    this.onTargetDispose,
     this.disposeOnTap,
     this.movingAnimationDuration = const Duration(milliseconds: 2000),
     this.disableMovingAnimation,
@@ -299,6 +301,7 @@ class Showcase extends StatefulWidget {
     this.scrollLoadingWidget = const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation(Colors.white)),
     this.onTargetClick,
+    this.onTargetDispose,
     this.disposeOnTap,
     this.movingAnimationDuration = const Duration(milliseconds: 2000),
     this.disableMovingAnimation,
@@ -472,6 +475,9 @@ class _ShowcaseState extends State<Showcase> {
       children: [
         GestureDetector(
           onTap: () {
+            if (widget.onTargetDispose != null) {
+              widget.onTargetDispose!();
+            }
             if (!showCaseWidgetState.disableBarrierInteraction) {
               _nextIfAny();
             }
