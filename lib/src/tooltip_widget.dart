@@ -111,6 +111,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
   double tooltipScreenEdgePadding = 20;
   double tooltipTextPadding = 12;
 
+  bool hasOneLine = true;
   TooltipPosition findPositionForContent(Offset position) {
     var height = 120.0;
     height = widget.contentHeight ?? height;
@@ -160,6 +161,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
     var maxTextWidth = max(titleLength, descriptionLength);
     if (maxTextWidth > widget.screenSize!.width - tooltipScreenEdgePadding) {
       tooltipWidth = widget.screenSize!.width - tooltipScreenEdgePadding;
+      hasOneLine = false;
     } else {
       tooltipWidth = maxTextWidth + tooltipTextPadding;
     }
@@ -467,7 +469,7 @@ class _ToolTipWidgetState extends State<ToolTipWidget>
                           widget.tooltipPosition == TooltipPosition.top)
                         Positioned(
                           left: _getArrowLeft(arrowWidth),
-                          top: 25,
+                          top: hasOneLine ? 25 : 40,
                           right: _getArrowRight(arrowWidth),
                           child: Transform.rotate(
                             angle: -math.pi / 4.0,
